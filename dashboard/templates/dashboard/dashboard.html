@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dietician Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
+    <style>
+        /* styles.css */
+
+/* Reset some default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2d3e50;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-header h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar-menu li a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    flex-grow: 1;
+    background-color: #f4f7fa;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+}
+
+.dashboard-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+}
+
+.stat h3 {
+    font-size: 18px;
+    color: #555;
+}
+
+.stat p {
+    font-size: 24px;
+    color: #333;
+}
+
+section {
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+button.btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #45a049;
+}
+
+.add-client-btn, .add-appointment-btn {
+    margin-bottom: 20px;
+
+}
+
+.edit-btn {
+    background-color: #f1c40f;
+}
+
+.edit-btn:hover {
+    background-color: #f39c12;
+}
+.entity-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+     {% if messages %}
+     {{messages}}
+     {% endif %}
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Dietician Dashboard</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#clients">Manage Clients</a></li>
+            <li><a href="#appointments">Manage Appointments</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <!-- <li><a href="#logout">Logout</a></li> -->
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <header>
+            <h1>Welcome, {{dietician_name}} !</h1>
+        </header>
+
+        <!-- Dashboard Overview -->
+        <section id="dashboard" class="dashboard">
+            <div class="dashboard-stats">
+                <div class="stat">
+                    <h3>Total Clients</h3>
+                    <p>120</p>
+                </div>
+                <div class="stat">
+                    <h3>Appointments Today</h3>
+                    <p>5</p>
+                </div>
+                <div class="stat">
+                    <h3>Pending Appointments</h3>
+                    <p>2</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manage Clients -->
+        <section id="clients" class="clients">
+            <div class="entity-header">
+            <h2>Clients</h2>
+            <button class="btn add-client-btn">Manage Client</button>
+        </div>
+            <table class="client-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add dynamic client rows here -->
+                    <tr>
+                        <td>John Doe</td>
+                        <td>johndoe@example.com</td>
+                        <td>+123456789</td>
+                        <td><button class="btn edit-btn">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>janesmith@example.com</td>
+                        <td>+987654321</td>
+                        <td><button class="btn edit-btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Manage Appointments -->
+        <section id="appointments" class="appointments">
+            <div class="entity-header">
+            <h2>Appointments</h2>
+            <button class="btn add-appointment-btn">Manage Appointment</button>
+        </div>
+            <table class="appointment-table">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add dynamic appointment rows here -->
+                    <tr>
+                        <td>John Doe</td>
+                        <td>2025-03-28</td>
+                        <td>10:00 AM</td>
+                        <td><button class="btn edit-btn">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>2025-03-29</td>
+                        <td>02:00 PM</td>
+                        <td><button class="btn edit-btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>
