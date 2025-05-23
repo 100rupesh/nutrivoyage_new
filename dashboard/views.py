@@ -5,7 +5,7 @@ from accounts.models import User
 from utils.decorators import role_required
 
 # @login_required(login_url='login')
-@role_required('DIETICIAN')
+@role_required('DIETICIAN','ADMIN')
 def dashboard(request):
     print((str(request.user.role)))
     user=str(request.user)

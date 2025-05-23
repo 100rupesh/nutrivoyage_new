@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Appointments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 20px 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .appointment-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .appointment-card:hover {
+            transform: scale(1.01);
+        }
+
+        .details {
+            flex-grow: 1;
+        }
+
+        .details h3 {
+            margin: 0;
+            color: #4CAF50;
+        }
+
+        .details p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .status {
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .status.upcoming {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .status.completed {
+            background-color: #e0e0e0;
+            color: #616161;
+        }
+
+        .status.cancelled {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .back-link {
+            margin: 20px 30px 0;
+            display: inline-block;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .appointment-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .status {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Appointments</h1>
+    <p>View your upcoming and past sessions</p>
+</header>
+
+<a href="{% url 'client' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="container">
+    <!-- {% for appointment in appointments %}
+<div class="appointment-card">
+    <div class="details">
+        <h3><i class="fas fa-user-md"></i> {{ appointment.type }}</h3>
+        <p><strong>Date:</strong> {{ appointment.date }}</p>
+        <p><strong>Time:</strong> {{ appointment.time }}</p>
+    </div>
+    <div class="status {{ appointment.status|lower }}">{{ appointment.status }}</div>
+</div>
+{% endfor %} -->
+
+
+    <div class="appointment-card">
+        <div class="details">
+            <h3><i class="fas fa-user-md"></i> Dietician Consultation</h3>
+            <p><strong>Date:</strong> April 21, 2025</p>
+            <p><strong>Time:</strong> 10:00 AM - 10:30 AM</p>
+        </div>
+        <div class="status upcoming">Upcoming</div>
+    </div>
+
+    <div class="appointment-card">
+        <div class="details">
+            <h3><i class="fas fa-notes-medical"></i> Monthly Check-in</h3>
+            <p><strong>Date:</strong> March 15, 2025</p>
+            <p><strong>Time:</strong> 4:00 PM - 4:30 PM</p>
+        </div>
+        <div class="status completed">Completed</div>
+    </div>
+
+    <div class="appointment-card">
+        <div class="details">
+            <h3><i class="fas fa-heartbeat"></i> Progress Review</h3>
+            <p><strong>Date:</strong> February 20, 2025</p>
+            <p><strong>Time:</strong> 11:30 AM - 12:00 PM</p>
+        </div>
+        <div class="status cancelled">Cancelled</div>
+    </div>
+
+</div>
+
+</body>
+</html>

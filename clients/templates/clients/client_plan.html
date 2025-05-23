@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Plans</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            width: 350px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .plan-card h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        .plan-card i {
+            font-size: 30px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .plan-content p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 30px 0;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .plan-card {
+                width: 100%;
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Plans</h1>
+    <p>Your personalized nutrition and fitness goals</p>
+</header>
+
+<a href="{% url 'client' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="container">
+
+    <div class="plan-card">
+        <i class="fas fa-dumbbell"></i>
+        <h2>Workout Plan</h2>
+        <div class="plan-content">
+            <p><strong>Goal:</strong> Build Strength</p>
+            <p><strong>Days/Week:</strong> 5</p>
+            <p><strong>Focus:</strong> Upper Body + Core</p>
+            <p><strong>Next Session:</strong> Push Day (Chest, Shoulders, Triceps)</p>
+        </div>
+    </div>
+
+    <div class="plan-card">
+        <i class="fas fa-apple-alt"></i>
+        <h2>Meal Plan</h2>
+        <div class="plan-content">
+            <p><strong>Goal:</strong> High Protein + Low Carb</p>
+            <p><strong>Breakfast:</strong> Greek Yogurt + Berries</p>
+            <p><strong>Lunch:</strong> Grilled Chicken Salad</p>
+            <p><strong>Dinner:</strong> Baked Salmon + Veggies</p>
+        </div>
+    </div>
+
+    <div class="plan-card">
+        <i class="fas fa-bullseye"></i>
+        <h2>Weekly Goals</h2>
+        <div class="plan-content">
+            <p>✅ Complete 4 workouts</p>
+            <p>✅ Drink 2L water daily</p>
+            <p>🕒 Sleep 7+ hours each night</p>
+            <p>📊 Maintain calorie deficit</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

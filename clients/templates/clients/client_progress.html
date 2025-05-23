@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Progress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 20px 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            flex: 1 1 400px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+
+        canvas {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+
+        .stats {
+            font-size: 18px;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        .milestone {
+            background: #e8f5e9;
+            border-left: 5px solid #4CAF50;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .back-link {
+            margin: 20px 30px 0;
+            display: inline-block;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Progress</h1>
+    <p>Visualize your transformation and stay motivated</p>
+</header>
+
+<a href="{% url 'client' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="container">
+
+    <div class="card">
+        <h2><i class="fas fa-weight"></i> Weight Progress</h2>
+        <canvas id="weightChart" style="height: 200px;"></canvas>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-dumbbell"></i> Workouts This Month</h2>
+        <canvas id="workoutChart" style="height: 200px;"></canvas>
+        <div class="stats">
+            Completed: <strong>14</strong><br>
+            Goal: <strong>20</strong><br>
+            Progress: <strong>70%</strong>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-trophy"></i> Milestones</h2>
+        <div class="milestone">✅ Lost first 5kg!</div>
+        <div class="milestone">✅ Completed 10 workouts in a month!</div>
+        <div class="milestone">🎯 On track to hit 15% body fat</div>
+    </div>
+
+</div>
+
+<script>
+    // Weight Progress Chart
+    const weightCtx = document.getElementById('weightChart').getContext('2d');
+    const weightChart = new Chart(weightCtx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Weight (kg)',
+                data: [78, 76.5, 75.2, 74.0],
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                borderColor: '#4CAF50',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+
+    // Workout Completion Chart
+    const workoutCtx = document.getElementById('workoutChart').getContext('2d');
+    const workoutChart = new Chart(workoutCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'Remaining'],
+            datasets: [{
+                data: [14, 6],
+                backgroundColor: ['#4CAF50', '#dcedc8'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Activity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 20px 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            padding: 30px;
+            max-width: 1200px;
+            gap: 20px;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            flex: 1 1 350px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-card h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        .activity-card i {
+            font-size: 30px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .activity-data {
+            margin-top: 10px;
+        }
+
+        .progress-container {
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            background-color: #4CAF50;
+            height: 12px;
+            width: 75%;
+        }
+
+        .back-link {
+            margin: 20px 0 0 30px;
+            display: inline-block;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 768px) {
+            .dashboard-wrapper {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Activity</h1>
+    <p>Track your daily progress and health goals</p>
+</header>
+
+<a href="{% url 'client' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="dashboard-wrapper">
+
+    <div class="activity-card">
+        <i class="fas fa-running"></i>
+        <h2>Today's Workout</h2>
+        <div class="activity-data">
+            <p><strong>Type:</strong> Full Body HIIT</p>
+            <p><strong>Duration:</strong> 35 minutes</p>
+            <p><strong>Calories Burned:</strong> 320 kcal</p>
+        </div>
+    </div>
+
+    <div class="activity-card">
+        <i class="fas fa-shoe-prints"></i>
+        <h2>Steps</h2>
+        <div class="activity-data">
+            <p><strong>Total:</strong> 9,200 / 10,000</p>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 92%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity-card">
+        <i class="fas fa-utensils"></i>
+        <h2>Meals Logged</h2>
+        <div class="activity-data">
+            <p><strong>Breakfast:</strong> Smoothie + Toast</p>
+            <p><strong>Lunch:</strong> Grilled Salmon + Quinoa</p>
+            <p><strong>Dinner:</strong> Veggie Stir Fry</p>
+        </div>
+    </div>
+
+    <div class="activity-card">
+        <i class="fas fa-bed"></i>
+        <h2>Sleep</h2>
+        <div class="activity-data">
+            <p><strong>Hours Slept:</strong> 7.5</p>
+            <p><strong>Goal:</strong> 8 hours</p>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 94%;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 30px 0;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .message-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .message {
+            max-width: 70%;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .message.client {
+            background-color: #e8f5e9;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .message.dietician {
+            background-color: #ffffff;
+            margin-right: auto;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        .sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .chat-box {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-box input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .chat-box button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chat-box button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .message {
+                max-width: 100%;
+            }
+
+            .chat-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Messages</h1>
+    <p>Chat with your coach or dietician</p>
+</header>
+
+<a href="{% url 'client' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="message-container">
+
+    <div class="message dietician">
+        <div class="sender">Coach Alex</div>
+        <div class="content">Hi! Great job on your progress this week 👏. Don't forget to log your meals today.</div>
+        <div class="timestamp">April 18, 2025 - 9:45 AM</div>
+    </div>
+
+    <div class="message client">
+        <div class="sender">You</div>
+        <div class="content">Thank you! Just logged breakfast 🍳</div>
+        <div class="timestamp">April 18, 2025 - 9:50 AM</div>
+    </div>
+
+    <div class="message dietician">
+        <div class="sender">Coach Alex</div>
+        <div class="content">Awesome! Let me know if you need help with lunch options.</div>
+        <div class="timestamp">April 18, 2025 - 10:00 AM</div>
+    </div>
+
+    <!-- Chat input box -->
+    <form class="chat-box" method="post">
+        {% csrf_token %}
+        <input type="text" name="message" placeholder="Type your message..." required>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Send</button>
+    </form>
+
+</div>
+
+</body>
+</html>

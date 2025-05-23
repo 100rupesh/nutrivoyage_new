@@ -1,0 +1,48 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    {% block extra_css %}
+    
+    {% endblock %}
+    <!-- <script defer src="scripts.js"></script> -->
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        {% if request.user.is_dietician %}
+        <h2>Dietician Dashboard</h2>
+        {% elif request.user.is_client %}
+        <h2>User Dashboard</h2>
+        {% elif request.user.is_admin %}
+        <h2>Admin Dashboard</h2>
+        {% endif %}
+    </div>
+    <ul class="sidebar-menu">
+        {% if request.user.is_dietician or request.user.is_admin %}
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="/admin">Admin</a></li>
+       
+        <li><a href="#clients">Manage Clients</a></li>
+        <li><a href="#appointments">Manage Appointments</a></li>
+        <li><a href="#settings">Settings</a></li>
+        {% endif %}
+        {% if request.user.is_client %}
+        <li><a href="#settings">Profile</a></li>
+        <li><a href="#settings">My Dietician</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <!-- <li><a href="#logout">Logout</a></li> -->
+    </ul>
+</div>
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

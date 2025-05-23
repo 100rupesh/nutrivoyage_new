@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Meal Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 20px 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .meal-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .meal-card h2 {
+      margin-top: 0;
+      color: #4CAF50;
+    }
+
+    .meal-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .meal-item:last-child {
+      border-bottom: none;
+    }
+
+    .meal-item strong {
+      color: #333;
+    }
+
+    .add-meal-form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .add-meal-form h3 {
+      color: #4CAF50;
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .btn-submit {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #45a049;
+    }
+
+    .back-link {
+      margin: 20px 30px 0;
+      display: inline-block;
+      text-decoration: none;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .meal-item {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Meal Tracker</h1>
+  <p>Track your meals and stay on target</p>
+</header>
+
+<a href="{% url 'client' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="container">
+
+  <!-- Meal Cards -->
+  <div class="meal-card">
+    <h2><i class="fas fa-coffee"></i> Breakfast</h2>
+    <div class="meal-item"><strong>Oatmeal & Berries</strong> – 320 kcal</div>
+    <div class="meal-item"><strong>Green Tea</strong> – 0 kcal</div>
+  </div>
+
+  <div class="meal-card">
+    <h2><i class="fas fa-hamburger"></i> Lunch</h2>
+    <div class="meal-item"><strong>Grilled Chicken Bowl</strong> – 500 kcal</div>
+    <div class="meal-item"><strong>Mixed Salad</strong> – 100 kcal</div>
+  </div>
+
+  <div class="meal-card">
+    <h2><i class="fas fa-utensils"></i> Dinner</h2>
+    <div class="meal-item"><strong>Baked Salmon</strong> – 450 kcal</div>
+    <div class="meal-item"><strong>Steamed Veggies</strong> – 150 kcal</div>
+  </div>
+
+  <div class="meal-card">
+    <h2><i class="fas fa-ice-cream"></i> Snacks</h2>
+    <div class="meal-item"><strong>Protein Bar</strong> – 200 kcal</div>
+  </div>
+
+  <!-- Add Meal Form -->
+  <form class="add-meal-form" method="post">
+    {% csrf_token %}
+    <h3><i class="fas fa-plus-circle"></i> Log a New Meal</h3>
+
+    <div class="form-group">
+      <label for="meal_type">Meal Type</label>
+      <select name="meal_type" id="meal_type" required>
+        <option value="">-- Select Meal --</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+        <option value="Snacks">Snacks</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="meal_name">Meal Name</label>
+      <input type="text" id="meal_name" name="meal_name" placeholder="e.g. Greek Yogurt with Almonds" required />
+    </div>
+
+    <div class="form-group">
+      <label for="calories">Calories</label>
+      <input type="number" id="calories" name="calories" placeholder="e.g. 250" required />
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notes (optional)</label>
+      <textarea id="notes" name="notes" rows="3" placeholder="Any notes..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit"><i class="fas fa-check-circle"></i> Add Meal</button>
+  </form>
+
+</div>
+
+</body>
+</html>

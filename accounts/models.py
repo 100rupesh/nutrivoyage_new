@@ -24,6 +24,14 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.get_role_display()})"
+    
+    def is_dietician(self):
+        return self.role == 'DIETICIAN'
+    
+    def is_admin(self):
+        return self.role == 'ADMIN'
+    def is_client(self):
+        return self.role == 'NORMAL'
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -41,3 +49,5 @@ def save_user_profile(sender, instance, **kwargs):
         profile.first_name = instance.first_name
         profile.last_name = instance.last_name
         profile.save() 
+
+

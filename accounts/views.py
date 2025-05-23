@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 
 def login_view(request):
     if request.method == "POST":
+        print("Inside post")
         username = request.POST['username']
         password = request.POST['password']
         
@@ -13,8 +14,13 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
+            print("USSSR",user.role)
             # messages.success(request, f"Welcome back, {user.username}!")
+            if user.role=='NORMAL':
+                print("NORMALLLL")
+                return redirect('client')
             return redirect('homepage')  # replace 'home' with your actual home page name
+              # replace 'home' with your actual home page name
         else:
             # messages.error(request, "Invalid username or password")
             print("Invalid Username or Password !")
@@ -24,5 +30,6 @@ def login_view(request):
 
 
 def logout_view(request):
+    print("LLL")
     logout(request)
     return redirect('login')  # or wherever you want to redirect post-logout

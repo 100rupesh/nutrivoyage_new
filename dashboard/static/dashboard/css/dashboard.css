@@ -1,0 +1,91 @@
+
+
+.main-content {
+    flex-grow: 1;
+    background-color: #f4f7fa;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+}
+
+.dashboard-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+}
+
+.stat h3 {
+    font-size: 18px;
+    color: #555;
+}
+
+.stat p {
+    font-size: 24px;
+    color: #333;
+}
+
+section {
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+button.btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #45a049;
+}
+
+.add-client-btn, .add-appointment-btn {
+    margin-bottom: 20px;
+
+}
+
+.edit-btn {
+    background-color: #f1c40f;
+}
+
+.edit-btn:hover {
+    background-color: #f39c12;
+}
+.entity-header{
+    display: flex;
+    justify-content: space-between;
+}
+

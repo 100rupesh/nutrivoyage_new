@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Client{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'clients/css/client.css' %}"/>
+{% endblock %}
+{% block content %}
+<!-- <header>
+    <h1>Welcome, {{ request.user.first_name }}!</h1>
+    <p>Your personalized health dashboard</p>
+</header> -->
+
+<div class="container">
+    <div class="card">
+        <a href="{% url 'activity' %}">
+        <h2>My Activity</h2>
+    </a>
+        <p>View your recent workouts, steps, calories burned, and more.</p>
+    </div>
+
+    <div class="card">
+        <a href="{% url 'plan' %}">
+        <h2>My Plans</h2>
+        </a>
+        <p>See your meal plans, exercise routines, and personalized goals.</p>
+    </div>
+
+    <div class="card">
+        <a href="{% url 'progress' %}">
+        <h2>Progress</h2>
+        </a>
+        <p>Track your progress over time with charts and milestones.</p>
+    </div>
+
+    <div class="card">
+        <a href="{% url 'message' %}">
+        <h2>Messages</h2>
+    </a>
+        <p>Check for updates or feedback from your dietician.</p>
+    </div>
+
+    <div class="card">
+        <a href="{% url 'appointment' %}">
+        <h2>Appointments</h2>
+        </a>
+        <p>Check for updates or feedback from your dietician.</p>
+    </div>
+
+    <div class="card">
+        <a href="{% url 'meal' %}">
+        <h2>Meal Tracker</h2>
+        </a>
+        <p>Check for updates or feedback from your dietician.</p>
+    </div>
+</div>
+
+<!-- <footer>
+    &copy; {{ now.year }} MyHealthApp. All rights reserved.
+</footer> -->
+
+{% endblock %}
