@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Diet Plan for {{appointment.patient.client_profile.first_name}}</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: #333;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #1e7e34;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(30, 126, 52, 0.15);
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #1e7e34;
+    }
+    textarea {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 1rem;
+      resize: vertical;
+      margin-bottom: 1.5rem;
+      font-family: inherit;
+      min-height: 60px;
+      transition: border-color 0.3s ease;
+    }
+    textarea:focus {
+      border-color: #1e7e34;
+      outline: none;
+    }
+    .error {
+      color: #b00020;
+      font-size: 0.9rem;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #1e7e34;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(30, 126, 52, 0.25);
+    }
+    button:hover {
+      background-color: #165c26;
+    }
+    .cancel-link {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      color: #1e7e34;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .cancel-link:hover {
+      text-decoration: underline;
+    }
+    .messages {
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .messages.error {
+      background-color: #f8d7da;
+      color: #842029;
+    }
+    .messages.success {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Create Diet Plan for {{ appointment.patient.client_profile.first_name }}</h1>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="messages {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    
+    <label for="breakfast">Breakfast</label>
+    <textarea id="breakfast" name="breakfast">{{ data.breakfast|default_if_none:"" }}</textarea>
+    {% if errors.breakfast %}
+      <div class="error">{{ errors.breakfast }}</div>
+    {% endif %}
+
+    <label for="lunch">Lunch</label>
+    <textarea id="lunch" name="lunch">{{ data.lunch|default_if_none:"" }}</textarea>
+    {% if errors.lunch %}
+      <div class="error">{{ errors.lunch }}</div>
+    {% endif %}
+
+    <label for="snacks">Snacks</label>
+    <textarea id="snacks" name="snacks">{{ data.snacks|default_if_none:"" }}</textarea>
+    {% if errors.snacks %}
+      <div class="error">{{ errors.snacks }}</div>
+    {% endif %}
+
+    <label for="dinner">Dinner</label>
+    <textarea id="dinner" name="dinner">{{ data.dinner|default_if_none:"" }}</textarea>
+    {% if errors.dinner %}
+      <div class="error">{{ errors.dinner }}</div>
+    {% endif %}
+
+    <button type="submit">Create Diet Plan</button>
+  </form>
+
+  <a href="{% url 'appointment_detail' appointment.id %}" class="cancel-link">Cancel and go back</a>
+
+</body>
+</html>

@@ -15,15 +15,15 @@
         <div class="dashboard-stats">
             <div class="stat">
                 <h3>Total Clients</h3>
-                <p>120</p>
+                <p>{{client_count}}</p>
             </div>
             <div class="stat">
-                <h3>Appointments Today</h3>
-                <p>5</p>
+                <h3>Appointments This Month</h3>
+                <p>{{appointment_count}}</p>
             </div>
             <div class="stat">
                 <h3>Pending Appointments</h3>
-                <p>2</p>
+                <p>{{pending_appointments}}</p>
             </div>
         </div>
     </section>
@@ -32,7 +32,7 @@
     <section id="clients" class="clients">
         <div class="entity-header">
         <h2>Clients</h2>
-        <button class="btn add-client-btn">Manage Client</button>
+        <button class="btn add-client-btn"><a href="/client/client_list">Manage Client</a></button>
     </div>
         <table class="client-table">
             <thead>
@@ -45,18 +45,15 @@
             </thead>
             <tbody>
                 <!-- Add dynamic client rows here -->
+                 {% for cl in client %}
                 <tr>
-                    <td>John Doe</td>
-                    <td>johndoe@example.com</td>
-                    <td>+123456789</td>
-                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td>{{cl.first_name}}</td>
+                    <td>{{cl.email_id}}</td>
+                    <td>{{cl.contact_no}}</td>
+                    <td><button class="btn edit-btn"><a href="/client/edit/{{cl.id}}/">Edit</a></button></td>
                 </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>janesmith@example.com</td>
-                    <td>+987654321</td>
-                    <td><button class="btn edit-btn">Edit</button></td>
-                </tr>
+                {% endfor %}
+
             </tbody>
         </table>
     </section>
@@ -65,31 +62,29 @@
     <section id="appointments" class="appointments">
         <div class="entity-header">
         <h2>Appointments</h2>
-        <button class="btn add-appointment-btn">Manage Appointment</button>
+        <button class="btn add-appointment-btn"><a href="/appointment/">Manage Appointment</a></button>
     </div>
         <table class="appointment-table">
             <thead>
                 <tr>
                     <th>Client Name</th>
                     <th>Date</th>
-                    <th>Time</th>
+                    <th>Diet Plans</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Add dynamic appointment rows here -->
+                 {% for ap in appointment %}
                 <tr>
-                    <td>John Doe</td>
-                    <td>2025-03-28</td>
-                    <td>10:00 AM</td>
-                    <td><button class="btn edit-btn">Edit</button></td>
+                    
+                    <td>{{ap.patient.client_profile.first_name}}</td>
+                    <td>{{ap.datetime}}</td>
+                    <td>2</td>
+                    <td><button class="btn edit-btn"><a href="">Edit</a></button></td>
+                    {% endfor %}
                 </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>2025-03-29</td>
-                    <td>02:00 PM</td>
-                    <td><button class="btn edit-btn">Edit</button></td>
-                </tr>
+                
             </tbody>
         </table>
     </section>

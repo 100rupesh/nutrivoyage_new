@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Appointment Details</title>
+
+
+  <style>
+    /* Reset some default styles */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .nav-tabs {
+      display: flex;
+      background-color: #1e7e34;
+      border-radius: 6px 6px 0 0;
+      overflow: hidden;
+    }
+
+    .nav-tabs button {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      background-color: #1e7e34;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-tabs button.active {
+      background-color: #145624;
+      border-bottom: 3px solid white;
+    }
+
+    .tab-panel {
+      display: none;
+      background-color: white;
+      padding: 1.5rem;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+    .container{
+        max-width: 700px;
+        margin: 0 auto 4rem auto;
+        padding: 1.5rem 2rem;
+    }
+    h1 {
+      color: #1e7e34;
+      margin-bottom: 0.25rem;
+    }
+
+    .appointment-info {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(30, 126, 52, 0.15);
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      border-left: 6px solid #1e7e34;
+    }
+
+    .appointment-info p {
+      margin: 0.5rem 0;
+      font-weight: 600;
+    }
+
+    .tabs {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 12px rgba(30, 126, 52, 0.12);
+      overflow: hidden;
+    }
+
+    /* Tab headers */
+    .tab-buttons {
+      display: flex;
+      background-color: #1e7e34;
+      user-select: none;
+    }
+
+    .tab-buttons button {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-bottom: 4px solid transparent;
+    }
+
+    .tab-buttons button:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .tab-buttons button.active {
+      color: #fff;
+      border-bottom: 4px solid #fff;
+      background-color: #1e7e34;
+    }
+
+    /* Tab content container */
+    .tab-content {
+      padding: 1.8rem 2rem;
+      animation: fadeIn 0.35s ease forwards;
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Meal section */
+    .meal-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .meal-section strong {
+      display: block;
+      font-size: 1.15rem;
+      color: #1e7e34;
+      margin-bottom: 0.3rem;
+      border-left: 4px solid #1e7e34;
+      padding-left: 8px;
+    }
+
+    .meal-section p {
+      background: #e6f1e8;
+      border-radius: 6px;
+      padding: 10px 15px;
+      color: #2c5d2f;
+      white-space: pre-wrap; /* keep newlines */
+      font-size: 1rem;
+    }
+
+    .created-at {
+      font-size: 0.85rem;
+      color: #666;
+      font-style: italic;
+      text-align: right;
+      margin-top: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .appointment-info,
+      .tabs {
+        padding: 1rem;
+        margin: 0 1rem 2rem;
+      }
+      .tab-buttons button {
+        font-size: 1rem;
+        padding: 0.75rem 0;
+      }
+    }
+  </style>
+    <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7f9;
+      padding: 2rem;
+      color: #333;
+    }
+
+    .diet-card {
+      background-color: white;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border-top: 6px solid #1e7e34;
+    }
+
+    .diet-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      color: #1e7e34;
+    }
+
+    .meal-section {
+      margin-bottom: 1.8rem;
+      padding: 1rem;
+      border-left: 4px solid #1e7e34;
+      background-color: #f9fdf9;
+      border-radius: 6px;
+    }
+
+    .meal-section h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      color: #1e7e34;
+      margin-bottom: 0.5rem;
+    }
+
+    .meal-section p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .plan-date {
+      font-size: 0.95rem;
+      color: #666;
+      text-align: right;
+      margin-top: 2rem;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .diet-card {
+        padding: 1.2rem;
+      }
+
+      .meal-section {
+        margin-bottom: 1.2rem;
+      }
+    }
+  </style>
+
+  <script>
+    function switchTab(index) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-buttons button');
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('active', i === index);
+        buttons[i].classList.toggle('active', i === index);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab(0); // Activate first tab by default
+    });
+  </script>
+</head>
+<body>
+    <div class="container">
+  <section class="appointment-info" aria-label="Appointment details">
+    <h1>Appointment Details</h1>
+    <p><strong>Patient:</strong> {{ appointment.patient }}</p>
+    <p><strong>Date:</strong> {{ appointment.datetime|date:"F j, Y" }}</p>
+  </section>
+<div class="nav-tabs">
+    <button class="tab-btn active" onclick="toggleTab(0)">Diet Plan 1</button>
+    <button class="tab-btn" onclick="toggleTab(1)">Diet Plan 2</button>
+  </div>
+
+  <div class="tab-panel active">
+    {% if diet_1 %}
+ 
+   <div class="diet-card">
+    <h1>Diet Plan</h1>
+
+    <div class="meal-section">
+      <h2>Breakfast</h2>
+      <p>{{diet_1.breakfast}}</p>
+    </div>
+
+    <div class="meal-section">
+      <h2>Lunch</h2>
+      <p>{{diet_1.snacks}}</p>
+    </div>
+
+    <div class="meal-section">
+      <h2>Snacks</h2>
+      <p>{{diet_1.lunch}}</p>
+    </div>
+
+    <div class="meal-section">
+      <h2>Dinner</h2>
+      <p>{{diet_1.dinner}}</p>
+    </div>
+
+    <div class="plan-date">
+      Created on: {{diet_1.created_at|date:"F j, Y g:i a"}}
+    </div>
+  </div>
+
+  
+    {% else %}
+    <h2>Diet Plan 1</h2>
+    <a href="/appointment/{{appointment.id}}/diet-plan/create/1">Create Diet Plan</a>
+    {% endif %}
+  </div>
+
+  <div class="tab-panel">
+   {% if diet_2 %}
+ 
+   <div class="diet-card">
+    <h1>Diet Plan</h1>
+
+    <div class="meal-section">
+      <h2>Breakfast</h2>
+      <p>{{diet_2.breakfast}}</p>
+    </div>
+
+    <div class="meal-section">
+      <h2>Lunch</h2>
+      <p>{{diet_2.snacks}}</p>
+    </div>
+
+    <div class="meal-section">
+      <h2>Snacks</h2>
+      <p>{{diet_2.lunch}}</p>
+    </div>
+
+    <div class="meal-section">
+      <h2>Dinner</h2>
+      <p>{{diet_2.dinner}}</p>
+    </div>
+
+    <div class="plan-date">
+      Created on: {{diet_2.created_at|date:"F j, Y g:i a"}}
+    </div>
+  </div>
+
+   
+    {% else %}
+    <h2>Diet Plan 2</h2>
+    <a href="/appointment/{{appointment.id}}/diet-plan/create/2">Create Diet Plan</a>
+    {% endif %}
+  </div>
+</div>
+  <script>
+    function toggleTab(index) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.tab-panel');
+
+      tabs.forEach((btn, i) => btn.classList.toggle('active', i === index));
+      panels.forEach((panel, i) => panel.classList.toggle('active', i === index));
+    }
+  </script>
+  
+
+</body>
+</html>

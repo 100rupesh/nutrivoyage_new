@@ -40,3 +40,8 @@ body {
 .sidebar-menu li a:hover {
     text-decoration: underline;
 }
+
+.content{
+    overflow-y: auto;
+    width:100vw;
+}

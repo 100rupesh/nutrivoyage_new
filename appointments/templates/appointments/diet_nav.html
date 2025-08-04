@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diet Plan Tabs</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      padding: 2rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      background-color: #1e7e34;
+      border-radius: 6px 6px 0 0;
+      overflow: hidden;
+    }
+
+    .nav-tabs button {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      background-color: #1e7e34;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-tabs button.active {
+      background-color: #145624;
+      border-bottom: 3px solid white;
+    }
+
+    .tab-panel {
+      display: none;
+      background-color: white;
+      padding: 1.5rem;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="toggleTab(0)">Diet Plan 1</button>
+    <button class="tab-btn" onclick="toggleTab(1)">Diet Plan 2</button>
+  </div>
+
+  <div class="tab-panel active">
+    <h2>Diet Plan 1</h2>
+    <p>Content for Diet Plan 1 goes here.</p>
+  </div>
+
+  <div class="tab-panel">
+    <h2>Diet Plan 2</h2>
+    <p>Content for Diet Plan 2 goes here.</p>
+  </div>
+
+  <script>
+    function toggleTab(index) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.tab-panel');
+
+      tabs.forEach((btn, i) => btn.classList.toggle('active', i === index));
+      panels.forEach((panel, i) => panel.classList.toggle('active', i === index));
+    }
+  </script>
+
+</body>
+</html>

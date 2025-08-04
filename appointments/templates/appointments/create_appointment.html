@@ -1,0 +1,126 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 40px;
+    }
+
+    .appointment-form {
+      background: #fff;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .appointment-form h2 {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body> -->
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Appointments{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'appointments/css/create_appointment.css' %}"/>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+  <form class="appointment-form" method="POST">
+    {% csrf_token %}
+    <h2>Book Appointment</h2>
+    <div class="form-group">
+      <label for="patient">Select Patient</label>
+      <select id="patient" name="patient" required>
+        <!-- Populate dynamically via Django template or JS -->
+         
+        <option value="">--Select Patient--</option>
+        {% for client in clients  %}
+        <option value="{{client.user.id}}">{{client.first_name}}</option>
+        {% endfor %}
+        <!-- <option value="1">John Doe</option> -->
+      </select>
+    </div>
+    <!-- Appointment Type -->
+    <div class="form-group">
+      <label for="appointment_type">Appointment Type</label>
+      <select id="appointment_type" name="appointment_type" required>
+        <option value="">--Select--</option>
+        <option value="free">Free</option>
+        <option value="paid">Paid</option>
+      </select>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="4" placeholder="Write any additional info..."></textarea>
+    </div>
+
+    <!-- Patient ID (dropdown or hidden if auto-filled) -->
+
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#patient').select2({
+      placeholder: 'Select Client',
+      allowClear: true
+    });
+  });
+</script>
+</body>
+</html>
+{% endblock %}

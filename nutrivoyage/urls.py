@@ -8,5 +8,6 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),  # Include the app's URL configuration
     path('accounts/', include('accounts.urls')),
     path('client/', include('clients.urls')),
+    path('appointment/', include('appointments.urls')),
     path('', login_view, name='login'),
 ]

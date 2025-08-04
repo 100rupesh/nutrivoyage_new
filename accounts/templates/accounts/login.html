@@ -9,10 +9,28 @@
   <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
 </head>
 <body>
+  {% if messages %}
+  <div>
+    <!-- {% for message in messages %} -->
+      <!-- <div class="alert">
+        <button class="close-btn" onclick="this.parentElement.style.display='none';" aria-label="Close alert">&times;</button>
+
+        {{ message }}
+      </div> -->
+      <div class="alert-container" id="alertContainer">
+
+        <div class="alert warning">
+    <button class="close-btn" onclick="closeAlert(this)">&times;</button>
+    <p>
+    Warning! Invalid username or password .
+    </p>
+  </div>
+  </div>
+    <!-- {% endfor %} -->
+  </div>
+  {% endif %}
   <div class="login-container">
-    {% if messages %}
-    {{messages}}
-    {% endif %}
+  
     <h2>Login</h2>
     <form method="post">
       {% csrf_token %}
@@ -25,5 +43,13 @@
       <button type="submit">Login</button>
     </form>
   </div>
+  <script>
+  function closeAlert(button) {
+    const alert = button.parentElement;
+    alert.style.opacity = '0';
+    alert.style.transform = 'translateX(100%)';
+    setTimeout(() => alert.remove(), 2);
+  }
+</script>
 </body>
 </html>

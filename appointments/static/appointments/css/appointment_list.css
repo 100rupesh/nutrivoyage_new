@@ -1,0 +1,90 @@
+    
+    .container{
+        padding: 30px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+      color:#4CAF50;
+    }
+    table.dataTable thead th {
+      background-color: #4CAF50;
+      color: white;
+      
+    }
+    .dt-button.buttons-pdf {
+      background-color:#D32F2F !important;
+      border: none !important;
+    }
+    .edit-btn {
+      background-color: #ffc107;
+      border: none;
+      color: #212529;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    .edit-btn:hover {
+      background-color: #e0a800;
+      color: white;
+    }
+
+
+  .btn-edit {
+    background-color: #007bff;
+  }
+  .btn-edit:hover {
+    background-color: #0056b3;
+  }
+  .btn-view {
+    background-color: #28a745;
+  }
+  .btn-view:hover {
+    background-color: #1e7e34;
+  }
+
+    .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: white;
+  }
+
+.header-component{
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: row; */
+  margin: 20px;
+  padding: 10px;
+  
+}
+
+.col-1 label{
+  margin-left: 20px;
+}
+
+.header-component button{
+  background-color: #28a745;
+  border: none;
+  height: 40px;
+  padding: 4px;
+  border-radius: 10px;
+  font-size: larger;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.header-component a{
+  text-decoration: none;
+  color: aliceblue;
+}

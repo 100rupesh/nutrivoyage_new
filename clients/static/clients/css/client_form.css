@@ -1,0 +1,72 @@
+        /* body {
+            font-family: Arial, sans-serif;
+            
+        } */
+        .form-container {
+            max-width: 700px;
+            height: 950px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #f4f4f4;
+            /* display: block; */
+            /* overflow-y: auto; */
+            
+            
+        }
+        .form-container h2 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+/* Optional: make sure inputs inside form-group take full width */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+}

@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Client List{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'clients/css/client_list.css' %}"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css"/>
+{% endblock %}
+{% block content %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User List</title>
+
+  <!-- DataTables CSS -->
+
+<div class="container">
+  <h1>User List</h1>
+  <table id="usersTable" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Creation Date</th>
+        
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.user.username }}</td>
+        <td>{{ user.email_id }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.date_of_creation }}</td>
+        <!-- <td>{% if user.is_staff %}Yes{% else %}No{% endif %}</td> -->
+        <td><a href="/client/edit/{{user.id}}" class="btn btn-edit" title="Edit">Edit</a>
+<a href="/client/detail/{{user.id}}" class="btn btn-view" title="View">View</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <!-- DataTables Buttons -->
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#usersTable').DataTable({
+        // order: [[4, 'asc']],
+        dom: 'Bfrtip',
+        buttons: [
+          {
+            extend: 'pdfHtml5',
+            text: 'Export to PDF',
+            className: 'dt-button buttons-pdf',
+            title: 'User List',
+            exportOptions: {
+              columns: [0,1,2,3,4,5]  // Export all columns except Actions
+            }
+          }
+        ],
+        paging: true,
+        searching: true,
+        ordering: true,
+      });
+    });
+  </script>
+</div>
+{% endblock %}

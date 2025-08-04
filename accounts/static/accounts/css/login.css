@@ -5,7 +5,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: Arial, sans-serif;
     margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #f0f2f5;
   }
   
   .login-container {
@@ -50,3 +54,56 @@ body {
     background-color: #45a049;
   }
   
+
+  .alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    max-width: 90vw;
+    z-index: 1000;
+  }
+  .alert {
+    background-color: #ff4f4f;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .alert.success {
+    background-color: #28a745;
+  }
+  .alert.info {
+    background-color: #17a2b8;
+  }
+  .alert.warning {
+    background-color: #ffc107;
+    color: #212529;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .alert.warning p{
+    width: 90%;
+  }
+  .alert .close-btn {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: white;
+    border: none;
+    background: transparent;
+  }
+  .alert.warning .close-btn {
+    color: #212529;
+    text-align: right;
+  }
+  .alert .close-btn:hover {
+    opacity: 0.7;
+  }

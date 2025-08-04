@@ -26,11 +26,13 @@
     </div>
     <ul class="sidebar-menu">
         {% if request.user.is_dietician or request.user.is_admin %}
-        <li><a href="#dashboard">Dashboard</a></li>
-        <li><a href="/admin">Admin</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+     
+        <li><a href="/client/create-client">Create Client</a></li>
+        <li><a href="/client/client_list">Client List</a></li>
        
         <li><a href="#clients">Manage Clients</a></li>
-        <li><a href="#appointments">Manage Appointments</a></li>
+        <li><a href="/appointment/">Manage Appointments</a></li>
         <li><a href="#settings">Settings</a></li>
         {% endif %}
         {% if request.user.is_client %}
@@ -41,8 +43,10 @@
         <!-- <li><a href="#logout">Logout</a></li> -->
     </ul>
 </div>
+<div class="content">
 {% block content %}
 {% endblock %}
+</div>
 
 </body>
 </html>

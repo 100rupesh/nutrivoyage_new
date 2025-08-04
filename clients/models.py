@@ -6,7 +6,8 @@ from django.db import models
 from datetime import date
 
 class ClientDetails(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client_profile')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client_profile',blank=True,null=True)
+    created_by=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,blank=True,null=True,limit_choices_to={'role': "DIETICIAN"})
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     dob = models.DateField(blank=True,null=True)  # Date of Birth
@@ -18,8 +19,25 @@ class ClientDetails(models.Model):
     height = models.FloatField(blank=True,null=True)  # Height in cm (or meters depending on your preference)
     weight = models.FloatField(blank=True,null=True)  # Weight in kg
     medical_condition = models.TextField(blank=True, null=True)
+    medications = models.TextField(blank=True, null=True)
+    chief_complaints = models.TextField(blank=True, null=True)
     gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')])
     client_type = models.CharField(max_length=10, choices=[('KVO', 'KVO'), ('Personal', 'Personal'), ('Other', 'Other')],blank=True)
+    DIET_PREFERENCES = [
+    ('veg', 'Vegetarian'),
+    ('eggetarian', 'Eggetarian'),
+    ('nonveg', 'Non-Vegetarian'),
+    ('vegan', 'Vegan'),
+    ('keto', 'Keto'),
+    ('paleo', 'Paleo'),
+]
+    diet_preference = models.CharField(
+        max_length=15,  # ensure it's large enough
+        choices=DIET_PREFERENCES,
+        default='veg',
+        null=True,
+        blank=True
+    )
 
     @property
     def age(self):
@@ -32,7 +50,7 @@ class ClientDetails(models.Model):
         """Compute and return the BMI based on height and weight."""
         # Assuming height is in cm and weight is in kg, BMI = weight (kg) / (height (m) ^ 2)
         height_in_meters = self.height / 100  # Convert cm to meters
-        return self.weight / (height_in_meters ** 2)
+        return self.weight / ((height_in_meters) ** 2)
 
     def __str__(self):
         return f"{self.user}"

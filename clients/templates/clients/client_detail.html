@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Client Details{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'clients/css/client_detail.css' %}"/>
+{% endblock %}
+{% block content %}
+
+
+<div class="profile-card">
+    <div class="profile-header">
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <p>{{ user.gender }}{% if user.client_type %} | {{ user.client_type }}{% endif %}</p>
+    </div>
+
+    <div class="section">
+        <h3>Contact Information</h3>
+        <div class="info-row">
+            <div class="info-label">Email:</div>
+            <div class="info-value">{{ user.email_id }}</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Contact No:</div>
+            <div class="info-value">{{ user.contact_no }}</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Location:</div>
+            <div class="info-value">{{ user.location }}</div>
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h3>Personal Information</h3>
+        <div class="info-row">
+            <div class="info-label">Date of Birth:</div>
+            <div class="info-value">{{ user.dob|date:"F j, Y" }}</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Age:</div>
+            <div class="info-value">{{ user.age }}</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Height:</div>
+            <div class="info-value">{{ user.height }} cm</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Weight:</div>
+            <div class="info-value">{{ user.weight }} kg</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">BMI:</div>
+            <div class="info-value">{{ user.bmi }}</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Medical Information</h3>
+        <div class="info-row">
+            <div class="info-label">Medical Condition:</div>
+            <div class="info-value">{{ user.medical_condition }}</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Notes</h3>
+        <div class="info-row" style="border:none;">
+            <div class="info-value" style="text-align:left;">{{ user.notes }}</div>
+        </div>
+    </div>
+    <div class="section">
+        <h3>Medications</h3>
+        <div class="info-row" style="border:none;">
+            <div class="info-value" style="text-align:left;">{{ user.medications }}</div>
+        </div>
+    </div>
+        <div class="section">
+        <h3>Chief Complaints</h3>
+        <div class="info-row" style="border:none;">
+            <div class="info-value" style="text-align:left;">{{ user.chief_complaints }}</div>
+        </div>
+    </div>
+
+
+
+    <div class="section" style="margin-bottom:0;">
+        <h3>Date of Creation</h3>
+        <div class="info-row" style="border:none;">
+            <div class="info-value">{{ user.date_of_creation|date:"F j, Y" }}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
