@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-vt=s_y@m%a=sg*9l=5+fzet7o$1q8w=+jt9lmk%d#(ql#w_^ng
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nutrivoyage-new.onrender.com']
 
 
 # Application definition
@@ -84,7 +84,7 @@ DATABASES = {
     }
 }
 
-
+CSRF_TRUSTED_ORIGINS = ['https://nutrivoyage-new.onrender.com']
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
