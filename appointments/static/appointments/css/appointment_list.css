@@ -33,7 +33,9 @@
       color: white;
     }
 
-
+.col-1{
+  visibility: hidden;
+}
   .btn-edit {
     background-color: #007bff;
   }
