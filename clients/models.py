@@ -54,3 +54,49 @@ class ClientDetails(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+    
+
+# from django.db import models
+# from django.contrib.auth.models import User
+
+class DailyHealthRecord(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client_health',blank=True,null=True)
+    created_by=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,blank=True,null=True,limit_choices_to={'role': "DIETICIAN"})
+
+
+    date = models.DateField(default=date.today)
+
+    # Workout data
+    workout_type = models.CharField(max_length=100, blank=True, null=True)
+    # workout_duration = models.PositiveIntegerField(help_text="Duration in minutes", blank=True, null=True)
+    workout_calories = models.PositiveIntegerField(help_text="Calories burned during workout", blank=True, null=True)
+
+    # Sleep data
+    sleep_hours = models.DecimalField(max_digits=4, decimal_places=2, help_text="Hours of sleep", blank=True, null=True)
+
+    # Weight tracking
+    weight = models.DecimalField(max_digits=5, decimal_places=2, help_text="Weight in kilograms", blank=True, null=True)
+
+    # Food intake
+    food_calories = models.PositiveIntegerField(help_text="Calories consumed from food", blank=True, null=True)
+
+    # Auto timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-date']
+        unique_together = ('user', 'created_at')
+        verbose_name = "Daily Health Record"
+        verbose_name_plural = "Daily Health Records"
+
+    def __str__(self):
+        return f"{self.user.username} - {self.created_at}"
+
+    @property
+    def net_calories(self):
+        """Calories consumed minus burned."""
+        burned = self.workout_calories or 0
+        consumed = self.food_calories or 0
+        return consumed - burned
+

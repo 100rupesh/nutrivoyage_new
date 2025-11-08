@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Client Progress Dashboard</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      padding: 40px;
+      color: #333;
+    }
+    h2 { text-align: center; margin-bottom: 30px; }
+    table {
+      width: 90%;
+      margin: auto;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 14px 20px;
+      text-align: center;
+    }
+    th {
+      background: #667eea;
+      color: #fff;
+    }
+    tr:hover { background: #f2f6ff; }
+    .status {
+      font-weight: bold;
+      color: white;
+      border-radius: 10px;
+      padding: 6px 10px;
+    }
+    .green { background: #4CAF50; }
+    .orange { background: #FFA500; }
+    .red { background: #E53935; }
+    a.details-btn {
+      text-decoration: none;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h2>📊 Client Progress Dashboard</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Weight Change (kg)</th>
+        <th>Avg Calories</th>
+        <th>Avg Sleep (hrs)</th>
+        <th>Compliance</th>
+        <th>Status</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in summaries %}
+      <tr>
+        <td>{{ c.user.username }}</td>
+        <td>{{ c.weight_change }}</td>
+        <td>{{ c.avg_calories }}</td>
+        <td>{{ c.avg_sleep }}</td>
+        <td>{{ c.compliance }}%</td>
+        <td><span class="status {{ c.color }}">{{ c.status }}</span></td>
+        <td><a href="{% url 'client_view_graph' c.user.id %}" class="details-btn">View Graph</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

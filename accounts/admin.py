@@ -10,7 +10,7 @@ class CustomUserAdmin(UserAdmin):
     # ordering = ['username']
 
     # You can add any additional fieldsets or forms as needed
-    list_filter = ['is_staff', 'is_active']
+    list_filter = ['is_staff', 'is_active','id']
     
     # Add the custom fields to the admin search fields
     search_fields = ['username', 'email']

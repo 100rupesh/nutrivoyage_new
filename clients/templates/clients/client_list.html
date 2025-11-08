@@ -58,8 +58,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
   <script>
+    
     $(document).ready(function() {
       $('#usersTable').DataTable({
+        "order": [[ 4, "desc" ]],
+        
         // order: [[4, 'asc']],
         dom: 'Bfrtip',
         buttons: [

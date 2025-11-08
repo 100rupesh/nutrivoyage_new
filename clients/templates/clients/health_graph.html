@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Health Graph</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- jsPDF for PDF download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    /* 🌄 Background & Layout */
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h2 {
+      margin-top: 40px;
+      font-size: 2rem;
+      color: #333;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 🧩 Card container */
+    .graph-container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px 40px;
+      margin-top: 30px;
+      width: 90%;
+      max-width: 900px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    /* 🧠 Controls styling */
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #444;
+    }
+
+    select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      transition: 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    select:hover {
+      border-color: #6a5acd;
+      background-color: #fff;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    /* 📊 Chart area */
+    .chart-area {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+
+    /* 🌟 Client name label */
+    #clientNameDisplay {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #444;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    /* 📎 PDF & Print buttons */
+    .export-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 12px;
+    }
+
+    .export-buttons button {
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+    }
+
+    .export-buttons button:hover {
+      box-shadow: 0 4px 12px rgba(67, 206, 162, 0.4);
+    }
+
+    /* ✨ Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📊 Health Data Visualization</h2>
+
+  <div class="graph-container">
+    <div class="controls">
+      <label>Username:</label>
+      <select id="usernameSelect">
+        <option value="">-- Select User --</option>
+        {% for u in users %}
+          <option value="{{ u.username }}">{{ u.username }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Parameter:</label>
+      <select id="parameterSelect">
+        <option value="">-- Select Parameter --</option>
+        {% for val, name in parameters %}
+          <option value="{{ val }}">{{ name }}</option>
+        {% endfor %}
+      </select>
+
+      <button onclick="loadGraph()">Show Graph</button>
+    </div>
+
+    <div id="clientNameDisplay"></div>
+
+    <div class="chart-area">
+      <canvas id="healthChart" width="800" height="400"></canvas>
+    </div>
+
+    <div class="export-buttons" style="display:none;" id="exportButtons">
+      <button onclick="printGraph()">🖨️ Print Graph</button>
+      <button onclick="downloadPDF()">📄 Download PDF</button>
+    </div>
+  </div>
+
+  <script>
+    let chart;
+
+    function loadGraph() {
+      const username = document.getElementById('usernameSelect').value;
+      const parameter = document.getElementById('parameterSelect').value;
+
+      if (!username || !parameter) {
+        alert('Please select both username and parameter');
+        return;
+      }
+
+      // 🌟 Display selected client name
+      const clientDisplay = document.getElementById('clientNameDisplay');
+      clientDisplay.innerHTML = `👤 Showing data for <span style="color:#6a5acd;">${username}</span>`;
+
+      fetch(`/client/get-graph-data/?username=${username}&parameter=${parameter}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+
+          const ctx = document.getElementById('healthChart').getContext('2d');
+          if (chart) chart.destroy();
+
+          chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: parameter.replace('_', ' ').toUpperCase(),
+                data: data.values,
+                fill: true,
+                backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                borderColor: '#667eea',
+                pointBackgroundColor: '#764ba2',
+                tension: 0.3
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { display: true },
+                title: { 
+                  display: true, 
+                  text: `${parameter.replace('_', ' ').toUpperCase()} Over Time`,
+                  color: '#333',
+                  font: { size: 18, weight: 'bold' }
+                }
+              },
+              scales: {
+                x: {
+                  title: { display: true, text: 'Date', color: '#555' },
+                  ticks: { color: '#555' }
+                },
+                y: {
+                  title: { display: true, text: parameter, color: '#555' },
+                  ticks: { color: '#555' }
+                }
+              }
+            }
+          });
+
+          // Show export buttons once graph loads
+          document.getElementById("exportButtons").style.display = "flex";
+        });
+    }
+
+    // 🖨️ Print Function
+    function printGraph() {
+      window.print();
+    }
+
+    // 📄 Download PDF Function
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const canvas = document.getElementById("healthChart");
+      const pdf = new jsPDF("landscape");
+
+      // Add title
+      pdf.setFontSize(18);
+      pdf.text("Health Graph Report", 14, 20);
+
+      const client = document.getElementById('usernameSelect').value;
+      const param = document.getElementById('parameterSelect').value;
+      pdf.setFontSize(12);
+      pdf.text(`Client: ${client} | Parameter: ${param.replace('_',' ')}`, 14, 30);
+
+      // Convert chart to image
+      const imgData = canvas.toDataURL("image/png", 1.0);
+      pdf.addImage(imgData, "PNG", 10, 40, 270, 120);
+
+      pdf.save(`${client}_${param}_graph.pdf`);
+    }
+  </script>
+</body>
+</html>

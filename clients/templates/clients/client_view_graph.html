@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ user.username }}'s Health Graph</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin: 30px; background: #f7fafc; }
+    h2 { color: #2b2d42; }
+    .controls { margin-bottom: 20px; }
+    select, button, a {
+      padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc;
+      font-family: inherit; font-size: 14px;
+    }
+    button, a.download-btn {
+      background-color: #2b7a78; color: white; border: none; cursor: pointer; text-decoration: none;
+    }
+    button:hover, a.download-btn:hover { background-color: #20565a; }
+    canvas {
+      background: white; border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px; margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>📊 {{ user.username|title }}'s Health Progress</h2>
+
+  <div class="controls">
+    <label>Select Parameter:</label>
+    <select id="parameterSelect">
+      {% for val, name in parameters %}
+        <option value="{{ val }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+    <button onclick="loadGraph()">Show Graph</button>
+    <a href="{% url 'weekly_report' user.id %}" class="download-btn">📄 Download Report (PDF)</a>
+  </div>
+
+  <canvas id="healthChart" width="800" height="400"></canvas>
+
+  <script>
+    const dataDict = {{ data_json|safe }};
+    const labels = dataDict.dates;
+    let chart;
+
+    function loadGraph() {
+      const parameter = document.getElementById('parameterSelect').value;
+      if (!parameter) return alert('Please select a parameter');
+
+      const values = dataDict[parameter];
+      const ctx = document.getElementById('healthChart').getContext('2d');
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: parameter.replace('_', ' ').toUpperCase(),
+            data: values,
+            borderColor: '#3aafa9',
+            backgroundColor: 'rgba(58,175,169,0.2)',
+            tension: 0.2,
+            fill: true,
+            pointRadius: 4
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: parameter.replace('_', ' ').toUpperCase() + ' Over Time'
+            },
+            legend: { display: false }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Date' } },
+            y: { title: { display: true, text: parameter } }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
