@@ -306,6 +306,14 @@
     <div class="plan-date">
       Created on: {{diet_1.created_at|date:"F j, Y g:i a"}}
     </div>
+    <div style="text-align:center; margin-top: 2rem;">
+  <a href="{% url 'download_diet_pdf' appointment.id %}" 
+     style="background-color: #1e7e34; color: white; padding: 12px 24px; 
+            border-radius: 6px; text-decoration: none; font-weight: 600;">
+     📄 Download PDF
+  </a>
+</div>
+
   </div>
 
   
@@ -344,6 +352,14 @@
     <div class="plan-date">
       Created on: {{diet_2.created_at|date:"F j, Y g:i a"}}
     </div>
+    <div style="text-align:center; margin-top: 2rem;">
+  <a href="{% url 'download_diet_pdf' appointment.id %}" 
+     style="background-color: #1e7e34; color: white; padding: 12px 24px; 
+            border-radius: 6px; text-decoration: none; font-weight: 600;">
+     📄 Download PDF
+  </a>
+</div>
+
   </div>
 
    
